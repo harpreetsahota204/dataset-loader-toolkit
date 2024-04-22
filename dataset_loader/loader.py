@@ -6,61 +6,95 @@ from datasets import load_dataset
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-class DatasetLoader:
-    def __init__(self, config_file):
-        self.config_file = config_file
-        self.datasets = {}
+def load_config(config_file):
+    """
+    Load the YAML configuration file.
 
-    def load_config(self):
-        try:
-            with open(self.config_file, "r") as f:
-                config = yaml.safe_load(f)
-            return config
-        except FileNotFoundError:
-            logger.error(f"Configuration file not found: {self.config_file}")
-            raise
-        except yaml.YAMLError as exc:
-            logger.error(f"Error parsing YAML file: {exc}")
-            raise
+    Args:
+        config_file (str): Path to the YAML configuration file.
 
-    def load_and_preprocess_dataset(self, dataset_name, split, subset_size=None, remove_cols=None, rename_cols=None, **dataset_kwargs):
-        try:
-            dataset = load_dataset(dataset_name, split=split, **dataset_kwargs)
-        except Exception as e:
-            logger.error(f"Error loading dataset '{dataset_name}': {e}")
-            raise
+    Returns:
+        dict: Parsed configuration dictionary.
 
-        if subset_size:
-            dataset = dataset.shuffle(seed=51).select(range(subset_size))
+    Raises:
+        FileNotFoundError: If the configuration file is not found.
+        yaml.YAMLError: If there is an error parsing the YAML file.
+    """
+    try:
+        with open(config_file, "r") as f:
+            config = yaml.safe_load(f)
+        return config
+    except FileNotFoundError:
+        logger.error(f"Configuration file not found: {config_file}")
+        raise
+    except yaml.YAMLError as exc:
+        logger.error(f"Error parsing YAML file: {exc}")
+        raise
 
-        if remove_cols:
-            dataset = dataset.remove_columns(remove_cols)
+def load_and_preprocess_dataset(dataset_config):
+    """
+    Load and preprocess a dataset based on the provided configuration.
 
-        if rename_cols:
-            dataset = dataset.rename_columns(rename_cols)
+    Args:
+        dataset_config (dict): Dataset configuration dictionary.
 
-        dataset = dataset.add_column('source', [dataset_name] * len(dataset))
+    Returns:
+        Dataset: Preprocessed dataset.
 
+    Raises:
+        Exception: If there is an error loading the dataset.
+    """
+    try:
+        # Load the dataset using the provided configuration
+        dataset = load_dataset(
+            dataset_config["dataset_name"],
+            split=dataset_config["split"],
+            **dataset_config.get("dataset_kwargs", {})
+        )
+    except Exception as e:
+        logger.error(f"Error loading dataset '{dataset_config['dataset_name']}': {e}")
+        raise
+
+    # Apply subset selection if specified in the configuration
+    if "subset_size" in dataset_config:
+        dataset = dataset.shuffle(seed=51).select(range(dataset_config["subset_size"]))
+
+    # Remove columns if specified in the configuration
+    if "remove_cols" in dataset_config:
+        dataset = dataset.remove_columns(dataset_config["remove_cols"])
+
+    # Rename columns if specified in the configuration
+    if "rename_cols" in dataset_config:
+        dataset = dataset.rename_columns(dataset_config["rename_cols"])
+
+    # Add a 'source' column with the dataset name
+    dataset = dataset.add_column('source', [dataset_config["dataset_name"]] * len(dataset))
+
+    return dataset
+
+def load_dataset_from_config(config_file, dataset_id):
+    """
+    Load a specific dataset from the configuration file.
+
+    Args:
+        config_file (str): Path to the YAML configuration file.
+        dataset_id (str): ID of the dataset to load.
+
+    Returns:
+        Dataset: Preprocessed dataset.
+        None: If the specified dataset ID is not found in the configuration.
+    """
+    # Load the entire configuration from the file
+    config = load_config(config_file)
+    
+    # Check if the specified dataset ID exists in the configuration
+    if dataset_id in config["datasets"]:
+        # Retrieve the configuration for the specified dataset
+        dataset_config = config["datasets"][dataset_id]
+        
+        # Load and preprocess the dataset using the retrieved configuration
+        dataset = load_and_preprocess_dataset(dataset_config)
         return dataset
-
-    def load_datasets(self):
-        config = self.load_config()
-
-        for dataset_id, dataset_config in config["datasets"].items():
-            try:
-                dataset = self.load_and_preprocess_dataset(
-                    dataset_config["dataset_name"],
-                    split=dataset_config["split"],
-                    subset_size=dataset_config.get("subset_size"),
-                    remove_cols=dataset_config.get("remove_cols"),
-                    rename_cols=dataset_config.get("rename_cols"),
-                    **dataset_config.get("dataset_kwargs", {})
-                )
-                self.datasets[dataset_id] = dataset
-                logger.info(f"Loaded and preprocessed dataset: {dataset_id}")
-            except Exception as e:
-                logger.error(f"Error loading dataset '{dataset_id}': {e}")
-
-    def get_dataset(self, dataset_id):
-        return self.datasets.get(dataset_id)
-
+    else:
+        logger.warning(f"Dataset '{dataset_id}' not found in the configuration file.")
+        return None
