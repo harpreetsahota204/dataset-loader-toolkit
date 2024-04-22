@@ -6,6 +6,17 @@ from PIL import Image
 import os
 
 def process_image(example):
+    """
+    Process an image example by decoding the base64 string and creating a PIL image.
+
+    Args:
+        example (dict): A dictionary containing the image example data.
+            - 'image_base64_str' (str): The base64-encoded string of the image.
+
+    Returns:
+        dict: The updated example dictionary with the decoded PIL image added as a new feature.
+            - 'image' (PIL.Image): The decoded PIL image.
+    """
     base64_string = example['image_base64_str']
     
     # Decode the base64 string
@@ -21,6 +32,3 @@ def process_image(example):
     example['image'] = image
     
     return example
-
-# Assuming your dataset is named 'dataset'
-dataset = dataset.map(process_image, num_proc=os.cpu_count())
