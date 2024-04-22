@@ -51,8 +51,9 @@ datasets:
       - "difficult_direct_answer"
       - "rationales"
 
-  doc_vqa:
+    doc_vqa:
     dataset_name: "lmms-lab/DocVQA"
+    config_name: "DocVQA"
     split: "train"
     subset_size: 1000
     remove_cols:
@@ -60,7 +61,8 @@ datasets:
       - "question_types"
       - "ucsf_document_id"
       - "ucsf_document_page_no"
-    data_dir: "DocVQA"
+    dataset_kwargs:
+      data_dir: "DocVQA"
 
   info_graphic_vqa:
     dataset_name: "lmms-lab/DocVQA"
@@ -73,4 +75,5 @@ datasets:
       - "operation/reasoning"
       - "ocr"
       - "data_split"
-    data_dir: "InfographicVQA"
+    dataset_kwargs:
+      data_dir: "InfographicVQA"
