@@ -35,8 +35,6 @@ datasets:
     dataset_name: "MMInstruction/M3IT"
     split: "train"
     subset_size: 1000
-    remove_cols:
-      - "inputs"
     rename_cols:
       "outputs": "answer"
       "instruction": "question"
@@ -51,7 +49,7 @@ datasets:
       - "difficult_direct_answer"
       - "rationales"
 
-    doc_vqa:
+  doc_vqa:
     dataset_name: "lmms-lab/DocVQA"
     config_name: "DocVQA"
     split: "train"
@@ -77,3 +75,16 @@ datasets:
       - "data_split"
     dataset_kwargs:
       data_dir: "InfographicVQA"
+
+  visual_web_bench:
+    dataset_name: "visualwebbench/VisualWebBench"
+    split: "test"
+    remove_cols:
+      - "id"
+      - "task_type"
+      - "website"
+      - "image_size"
+    dataset_kwargs:
+      data_dir: "webqa"
+    rename_cols:
+      "answer": "answers"
