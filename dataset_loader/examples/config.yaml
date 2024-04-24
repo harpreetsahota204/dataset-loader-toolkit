@@ -59,6 +59,8 @@ datasets:
       - "question_types"
       - "ucsf_document_id"
       - "ucsf_document_page_no"
+      - "docId"
+      - "data_split"
     dataset_kwargs:
       data_dir: "DocVQA"
 
