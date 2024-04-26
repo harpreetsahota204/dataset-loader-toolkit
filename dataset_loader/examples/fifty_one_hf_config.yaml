@@ -1,0 +1,65 @@
+text_vqa_subset:
+  repo_id: "lmms-lab/textvqa"
+  split: "train"
+  format: "ParquetFilesDataset"
+  
+wild_vision:
+  repo_id: "WildVision/PublicBenchHub"
+  split: "test"
+  format: "ParquetFilesDataset"
+  filepath: "image_input"
+
+real_world_qa:
+  repo_id: "xai-org/RealworldQA"
+  split: "test"
+  format: "ParquetFilesDataset"
+
+ai2d:
+  repo_id: "lmms-lab/ai2d"
+  split: "test"
+  format: "ParquetFilesDataset"
+
+a_ok_vqa:
+  repo_id: "HuggingFaceM4/A-OKVQA"
+  split: "validation"
+  format: "ParquetFilesDataset"
+
+doc_vqa:
+  repo_id: "lmms-lab/DocVQA"
+  split: "validation"
+  data_dir: "DocVQA"
+  format: "ParquetFilesDataset"
+
+info_graphic_vqa:
+  repo_id: "lmms-lab/DocVQA"
+  split: "validation"
+  data_dir: "InfographicVQA"
+  format: "ParquetFilesDataset"
+
+visual_web_bench:
+  repo_id: "visualwebbench/VisualWebBench"
+  split: "test"
+  data_dir: "webqa"
+  format: "ParquetFilesDataset"
+
+mme:
+  repo_id: "lmms-lab/MME"
+  split: "test"
+  format: "ParquetFilesDataset"
+
+ocr_vqa:
+  repo_id: "howard-hou/OCR-VQA"
+  split: "test"
+  max_samples: 1000
+  format: "ParquetFilesDataset"
+
+lnqa:
+  repo_id: "vikhyatk/lnqa"
+  split: "train"
+  max_samples: 1000
+  format: "ParquetFilesDataset"
+
+vqa_rad:
+  repo_id: "flaviagiammarino/vqa-rad"
+  split: "train"
+  format: "ParquetFilesDataset"
