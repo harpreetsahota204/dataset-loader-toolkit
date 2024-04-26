@@ -39,7 +39,7 @@ info_graphic_vqa:
 visual_web_bench:
   repo_id: "visualwebbench/VisualWebBench"
   split: "test"
-  data_dir: "webqa"
+  subset: "webqa"
   format: "ParquetFilesDataset"
 
 mme:
