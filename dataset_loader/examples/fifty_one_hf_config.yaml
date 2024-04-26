@@ -27,13 +27,13 @@ a_ok_vqa:
 doc_vqa:
   repo_id: "lmms-lab/DocVQA"
   split: "validation"
-  data_dir: "DocVQA"
+  subset: "DocVQA"
   format: "ParquetFilesDataset"
 
 info_graphic_vqa:
   repo_id: "lmms-lab/DocVQA"
   split: "validation"
-  data_dir: "InfographicVQA"
+  subset: "InfographicVQA"
   format: "ParquetFilesDataset"
 
 visual_web_bench:
