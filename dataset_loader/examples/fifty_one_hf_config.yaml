@@ -63,6 +63,13 @@ doc_vqa:
     format: "ParquetFilesDataset"
     name: "doc_vqa"
     max_samples: 4000
+  delete_sample_fields:
+    - "questionId"
+    - "question_types"
+    - "docId"
+    - "ucsf_document_id"
+    - "ucsf_document_page_no"
+    - "data_split"
 
 info_graphic_vqa:
   loader_args:
@@ -71,11 +78,14 @@ info_graphic_vqa:
     subset: "InfographicVQA"
     format: "ParquetFilesDataset"
     name: "info_graphic_vqa"
-    max_samples: 4000
   delete_sample_fields:
     - "questionId"
     - "question_types"
     - "docId"
+    - "answer_type"
+    - "image_url"
+    - "operation/reasoning"
+    - "ocr"
     - "ucsf_document_id"
     - "ucsf_document_page_no"
     - "data_split"
@@ -98,6 +108,7 @@ mme:
     repo_id: "lmms-lab/MME"
     split: "test"
     format: "ParquetFilesDataset"
+    max_samples: 1000
   delete_sample_fields:
     - "question_id"
     - "category"
