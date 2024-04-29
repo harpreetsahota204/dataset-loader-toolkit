@@ -1,11 +1,10 @@
-
 from datasets import Dataset
 import base64
 from io import BytesIO
 from PIL import Image
 import os
 
-def process_image(example):
+def convert_base_64_to_image(example):
     """
     Process an image example by decoding the base64 string and creating a PIL image.
 

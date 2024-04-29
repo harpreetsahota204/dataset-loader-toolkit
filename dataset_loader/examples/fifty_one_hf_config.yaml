@@ -1,65 +1,134 @@
 text_vqa_subset:
-  repo_id: "lmms-lab/textvqa"
-  split: "train"
-  format: "ParquetFilesDataset"
-  
+  loader_args:
+    max_samples: 4000
+    repo_id: "lmms-lab/textvqa"
+    split: "train"
+    format: "ParquetFilesDataset"
+  delete_sample_fields:
+    - "question_id"
+    - "image_id"
+    - "image_path"
+    - "set_name"
+    - "image_classes"
+    - "flickr_300k_url"
+    - "flickr_original_url"
+    - "image_width"
+    - "image_height"
+    - "ocr_tokens"
+    - "question_tokens"
+
 wild_vision:
-  repo_id: "WildVision/PublicBenchHub"
-  split: "test"
-  format: "ParquetFilesDataset"
-  filepath: "image_input"
+  loader_args:
+    repo_id: "WildVision/PublicBenchHub"
+    split: "test"
+    format: "ParquetFilesDataset"
+    filepath: "image_input"
+  delete_sample_fields:
+    - "index"
+    - "category"
+    - "task_name"
+    - "human_annotation"
+  rename_sample_fields:
+    {"gpt4_ha_answer": "answer"}
 
 real_world_qa:
-  repo_id: "xai-org/RealworldQA"
-  split: "test"
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "xai-org/RealworldQA"
+    split: "test"
+    format: "ParquetFilesDataset"
 
 ai2d:
-  repo_id: "lmms-lab/ai2d"
-  split: "test"
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "lmms-lab/ai2d"
+    split: "test"
+    format: "ParquetFilesDataset"
 
 a_ok_vqa:
-  repo_id: "HuggingFaceM4/A-OKVQA"
-  split: "validation"
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "HuggingFaceM4/A-OKVQA"
+    split: "validation"
+    format: "ParquetFilesDataset"
+    max_samples: 4000
+  delete_sample_fields:
+    - "question_id"
+    - "difficult_direct_answer"
+    - "direct_answers"
+    - "rationales"
 
 doc_vqa:
-  repo_id: "lmms-lab/DocVQA"
-  split: "validation"
-  subset: "DocVQA"
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "lmms-lab/DocVQA"
+    split: "validation"
+    subset: "DocVQA"
+    format: "ParquetFilesDataset"
+    name: "doc_vqa"
+    max_samples: 4000
 
 info_graphic_vqa:
-  repo_id: "lmms-lab/DocVQA"
-  split: "validation"
-  subset: "InfographicVQA"
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "lmms-lab/DocVQA"
+    split: "validation"
+    subset: "InfographicVQA"
+    format: "ParquetFilesDataset"
+    name: "info_graphic_vqa"
+    max_samples: 4000
+  delete_sample_fields:
+    - "questionId"
+    - "question_types"
+    - "docId"
+    - "ucsf_document_id"
+    - "ucsf_document_page_no"
+    - "data_split"
 
 visual_web_bench:
-  repo_id: "visualwebbench/VisualWebBench"
-  split: "test"
-  subset: "webqa"
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "visualwebbench/VisualWebBench"
+    split: "test"
+    subset: "webqa"
+    format: "ParquetFilesDataset"
+    name: "webqa"
+  delete_sample_fields:
+    - "id"
+    - "task_type"
+    - "website"
+    - "image_size"
 
 mme:
-  repo_id: "lmms-lab/MME"
-  split: "test"
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "lmms-lab/MME"
+    split: "test"
+    format: "ParquetFilesDataset"
+  delete_sample_fields:
+    - "question_id"
+    - "category"
 
 ocr_vqa:
-  repo_id: "howard-hou/OCR-VQA"
-  split: "test"
-  max_samples: 1000
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "howard-hou/OCR-VQA"
+    split: "test"
+    format: "ParquetFilesDataset"
+    max_samples: 4000
+  delete_sample_fields:
+    - "image_id"
+    - "ocr_tokens"
+    - "ocr_info"
+    - "title"
+    - "authorName"
+    - "image_width"
+    - "image_height"
+    - "image_url"
+    - "set_name"
+    - "genre"
 
 lnqa:
-  repo_id: "vikhyatk/lnqa"
-  split: "train"
-  max_samples: 1000
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "vikhyatk/lnqa"
+    split: "train"
+    format: "ParquetFilesDataset"
+    max_samples: 3000
 
 vqa_rad:
-  repo_id: "flaviagiammarino/vqa-rad"
-  split: "train"
-  format: "ParquetFilesDataset"
+  loader_args:
+    repo_id: "flaviagiammarino/vqa-rad"
+    split: "train"
+    format: "ParquetFilesDataset"
