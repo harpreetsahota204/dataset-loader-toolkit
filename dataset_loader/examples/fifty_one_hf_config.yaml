@@ -7,7 +7,6 @@ text_vqa_subset:
   delete_sample_fields:
     - "question_id"
     - "image_id"
-    - "image_path"
     - "set_name"
     - "image_classes"
     - "flickr_300k_url"
@@ -80,14 +79,10 @@ info_graphic_vqa:
     name: "info_graphic_vqa"
   delete_sample_fields:
     - "questionId"
-    - "question_types"
-    - "docId"
     - "answer_type"
     - "image_url"
     - "operation/reasoning"
     - "ocr"
-    - "ucsf_document_id"
-    - "ucsf_document_page_no"
     - "data_split"
 
 visual_web_bench:
@@ -98,7 +93,6 @@ visual_web_bench:
     format: "ParquetFilesDataset"
     name: "webqa"
   delete_sample_fields:
-    - "id"
     - "task_type"
     - "website"
     - "image_size"
