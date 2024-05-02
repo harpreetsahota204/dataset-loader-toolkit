@@ -4,6 +4,7 @@ text_vqa_subset:
     repo_id: "lmms-lab/textvqa"
     split: "train"
     format: "ParquetFilesDataset"
+    batch_size: 50
   delete_sample_fields:
     - "question_id"
     - "image_id"
@@ -23,7 +24,6 @@ wild_vision:
     format: "ParquetFilesDataset"
     filepath: "image_input"
   delete_sample_fields:
-    - "index"
     - "category"
     - "task_name"
     - "human_annotation"
@@ -48,6 +48,7 @@ a_ok_vqa:
     split: "validation"
     format: "ParquetFilesDataset"
     max_samples: 4000
+    batch_size: 50
   delete_sample_fields:
     - "question_id"
     - "difficult_direct_answer"
@@ -62,6 +63,7 @@ doc_vqa:
     format: "ParquetFilesDataset"
     name: "doc_vqa"
     max_samples: 4000
+    batch_size: 50
   delete_sample_fields:
     - "questionId"
     - "question_types"
@@ -96,6 +98,8 @@ visual_web_bench:
     - "task_type"
     - "website"
     - "image_size"
+  rename_sample_fields:
+    {"answer": "answers"}
 
 mme:
   loader_args:
@@ -113,6 +117,7 @@ ocr_vqa:
     split: "test"
     format: "ParquetFilesDataset"
     max_samples: 4000
+    batch_size: 50
   delete_sample_fields:
     - "image_id"
     - "ocr_tokens"
@@ -131,6 +136,7 @@ lnqa:
     split: "train"
     format: "ParquetFilesDataset"
     max_samples: 3000
+    batch_size: 50
 
 vqa_rad:
   loader_args:
